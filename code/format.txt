@@ -1,0 +1,216 @@
+	logic CLK;
+	logic RST;
+	logic isNotEnd;
+  logic userWins;
+  logic [4:0] s;
+  typedef enum logic [4:0] {S0, S1, S2, S3, S4_0, S4_1, S4_2, S4_3, S4_4, S5, S6_0, S6_1, S6_2, S7_0, S7_1, S7_2, S7_3, S7_4, S8, S9, S10_0, S10_1, S10_2, S11} statetype;
+
+	sanmoku #
+	(
+		.FIRST(FIRST),
+    .SECOND(SECOND),
+    .THIRD(THIRD),
+    .FOURTH(FOURTH)
+	)
+	uut
+	(
+		.CLK(CLK),
+		.RST(RST),
+		.isNotEnd(isNotEnd),
+    .userWins(userWins),
+    .s(s)
+	);
+
+  int isEnd;
+
+	initial begin
+		$dumpfile("uut.vcd");
+		$dumpvars(0, uut, CLK, RST, s);
+	end
+
+	// generate a clock sequence
+	initial begin
+		CLK = 0;
+		forever begin
+			#5 CLK = !CLK;
+		end
+	end
+
+	// geberate a reset sequence
+	initial begin
+		RST = 0;
+ 		#100;
+		RST = 1;
+		#100
+		RST = 0;
+		#100;
+		$finish;
+	end
+
+	// observe signals
+	initial begin
+		#200;
+    $write("state = %%d isNotEnd = %b userWins = %b\n", uut.s, uut.isNotEnd, uut.userWins);
+    $display("-------");
+    $display("| | | |");
+    $display("-------");
+    $display("| |o| |");
+    $display("-------");
+    $display("| | | |");
+    $display("-------");
+		forever begin
+			@(posedge CLK);
+			#5;
+      if (isEnd == 0 & uut.s != S11) begin
+        $display("-------");
+        if (uut.s == S1) begin
+          $display("|o|x| |");
+          $display("-------");
+          $display("| |o| |");
+          $display("-------");
+          $display("| | | |");
+        end else if (uut.s == S2) begin
+          $display("|x| | |");
+          $display("-------");
+          $display("| |o| |");
+          $display("-------");
+          $display("|o| | |");
+        end else if (uut.s == S3) begin
+          $display("|o|x| |");
+          $display("-------");
+          $display("|o|o| |");
+          $display("-------");
+          $display("| | |x|");
+        end else if (uut.s == S4_0) begin
+          $display("|o|x|x|");
+          $display("-------");
+          $display("| |o| |");
+          $display("-------");
+          $display("| | |o|");
+        end else if (uut.s == S4_1) begin
+          $display("|o|x| |");
+          $display("-------");
+          $display("|x|o| |");
+          $display("-------");
+          $display("| | |o|");
+        end else if (uut.s == S4_2) begin
+          $display("|o|x| |");
+          $display("-------");
+          $display("| |o|x|");
+          $display("-------");
+          $display("| | |o|");
+        end else if (uut.s == S4_3) begin
+          $display("|o|x| |");
+          $display("-------");
+          $display("| |o| |");
+          $display("-------");
+          $display("|x| |o|");
+        end else if (uut.s == S4_4) begin
+          $display("|o|x| |");
+          $display("-------");
+          $display("| |o| |");
+          $display("-------");
+          $display("| |x|o|");
+        end else if (uut.s == S5) begin
+          $display("|o|x| |");
+          $display("-------");
+          $display("|o|o|o|");
+          $display("-------");
+          $display("|x| |x|");
+        end else if (uut.s == S6_0) begin
+          $display("|o|x|x|");
+          $display("-------");
+          $display("|o|o| |");
+          $display("-------");
+          $display("|o| |x|");
+        end else if (uut.s == S6_1) begin
+          $display("|o|x| |");
+          $display("-------");
+          $display("|o|o|x|");
+          $display("-------");
+          $display("|o| |x|");
+        end else if (uut.s == S6_2) begin
+          $display("|o|x| |");
+          $display("-------");
+          $display("|o|o| |");
+          $display("-------");
+          $display("|o|x|x|");
+        end else if (uut.s == S7_0) begin
+          $display("|x|x|o|");
+          $display("-------");
+          $display("| |o| |");
+          $display("-------");
+          $display("|o| | |");
+        end else if (uut.s == S7_1) begin
+          $display("|x| |o|");
+          $display("-------");
+          $display("|x|o| |");
+          $display("-------");
+          $display("|o| | |");
+        end else if (uut.s == S7_2) begin
+          $display("|x| |o|");
+          $display("-------");
+          $display("| |o|x|");
+          $display("-------");
+          $display("|o| | |");
+        end else if (uut.s == S7_3) begin
+          $display("|x| |o|");
+          $display("-------");
+          $display("| |o| |");
+          $display("-------");
+          $display("|o|x| |");
+        end else if (uut.s == S7_4) begin
+          $display("|x| |o|");
+          $display("-------");
+          $display("| |o| |");
+          $display("-------");
+          $display("|o| |x|");
+        end else if (uut.s == S8) begin
+          $display("|x| |x|");
+          $display("-------");
+          $display("| |o| |");
+          $display("-------");
+          $display("|o|o| |");
+        end else if (uut.s == S9) begin
+          $display("|x|x|x|");
+          $display("-------");
+          $display("| |o| |");
+          $display("-------");
+          $display("|o|o| |");
+        end else if (uut.s == S10_0) begin
+          $display("|x|o|x|");
+          $display("-------");
+          $display("|x|o| |");
+          $display("-------");
+          $display("|o|o| |");
+        end else if (uut.s == S10_1) begin
+          $display("|x|o|x|");
+          $display("-------");
+          $display("| |o|x|");
+          $display("-------");
+          $display("|o|o| |");
+        end else if (uut.s == S10_2) begin
+          $display("|x|o|x|");
+          $display("-------");
+          $display("| |o| |");
+          $display("-------");
+          $display("|o|o|x|");
+        end
+        $display("-------");
+
+        $write("state = %%d isNotEnd = %b userWins = %b\n", uut.s, uut.isNotEnd, uut.userWins);
+      end
+
+      if (isEnd == 1) begin
+        if (uut.userWins == 1) begin
+          $display("You Win");
+        end else begin 
+          $display("You Lose");
+        end
+        $finish;
+      end
+      if (uut.isNotEnd == 0) isEnd = 1;
+		end
+	end
+
+endmodule
