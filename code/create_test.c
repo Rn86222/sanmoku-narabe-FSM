@@ -8,7 +8,7 @@ int main(){
   int first, second, third, fourth;
   char fname[1024];
   char fname_sv[1024];
-  char format_name[30] = "./code/tester_format.txt";
+  char format_name[30] = "./code/test_format.txt";
   char line[2048];
   printf("input tester file name (before \".sv\"): ");
   scanf("%s", fname);
