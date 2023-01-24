@@ -8,8 +8,8 @@ int main(){
   int first, second, third, fourth;
   char fname[1024];
   char fname_sv[1024];
-  char format_name[20] = "format.txt";
-  char line[1024];
+  char format_name[30] = "./code/tester_format.txt";
+  char line[2048];
   printf("input tester file name (before \".sv\"): ");
   scanf("%s", fname);
   strcpy(fname_sv, fname);
@@ -29,8 +29,8 @@ int main(){
   fprintf(fp, "module %s;\n\n", fname);
   fprintf(fp, "\tlocalparam FIRST = %d;\n\tlocalparam SECOND = %d;\n\tlocalparam THIRD = %d;\n\tlocalparam FOURTH = %d;\n", first, second, third, fourth);
 
-  while (fgets(line, 1024, formatp) != NULL)
-    fprintf(fp, line);
+  while (fgets(line, 2048, formatp) != NULL)
+    fprintf(fp, "%s", line);
 
   fclose(fp);
   fclose(formatp);
@@ -42,7 +42,7 @@ int main(){
     char cmd[1024];
     strcpy(cmd, "iverilog -Wall -g2012 ");
     strcat(cmd, fname_sv);
-    strcat(cmd, " sanmoku.sv -o ");
+    strcat(cmd, " ./code/sanmoku.sv -o ");
     strcat(cmd, fname);
     system(cmd);
     printf("execute? [y/n]: ");
