@@ -1,9 +1,9 @@
 module test;
 
-	localparam FIRST = 0;
+	localparam FIRST = 1;
   localparam SECOND = 2;
-  localparam THIRD = 1;
-  localparam FOURTH = 3;
+  localparam THIRD = 4;
+  localparam FOURTH = 8;
 	logic CLK;
 	logic RST;
   logic [3:0] A;
@@ -49,6 +49,7 @@ module test;
 		$finish;
 	end
 
+  // select action
   always_comb begin
     if (uut.s == S0) begin
       A = FIRST;
