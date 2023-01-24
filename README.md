@@ -42,7 +42,7 @@ You Lose
 ```
 手動でやるのが面倒な場合`create_test.c`ファイルが利用できる。
 ```sh
-gcc -O3 create_test.c
-./a.out
+gcc -O3 -o create_test ./code/create_test.c
+./create_test
 ```
 上記のコマンドを実行し表示される指示文に従えば、自分の手を任意に変更でき、かつシミュレータの実行を自動で行うことができる。
