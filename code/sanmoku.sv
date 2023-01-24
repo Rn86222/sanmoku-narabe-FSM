@@ -8,7 +8,7 @@ module sanmoku
   (
     input logic CLK,
     input logic RST,
-    input logic [3:0] cmd,
+    input logic [3:0] A,
     output logic isNotEnd,
     output logic userWins,
     output logic [23:0] s
@@ -20,10 +20,10 @@ module sanmoku
 
   always_comb begin
     case (state)
-      S0: if (cmd % 2 == 1) nextstate = S1;
-          else if (cmd == 4) nextstate = S11;
+      S0: if (A % 2 == 1) nextstate = S1;
+          else if (A == 4) nextstate = S11;
           else nextstate = S2;
-      S1: case (cmd)
+      S1: case (A)
             8: nextstate = S3;
             2: nextstate = S4_0;
             3: nextstate = S4_1;
@@ -32,7 +32,7 @@ module sanmoku
             7: nextstate = S4_4;
             default: nextstate = S11;
           endcase
-      S2: case (cmd)
+      S2: case (A)
             2: nextstate = S8;
             1: nextstate = S7_0;
             3: nextstate = S7_1;
@@ -41,14 +41,14 @@ module sanmoku
             8: nextstate = S7_4;
             default: nextstate = S11;
           endcase
-      S3: case (cmd)
+      S3: case (A)
             6: nextstate = S5;
             2: nextstate = S6_0;
             5: nextstate = S6_1;
             7: nextstate = S6_2;
             default: nextstate = S11;
           endcase
-      S8: case (cmd)
+      S8: case (A)
             1: nextstate = S9;
             3: nextstate = S10_0;
             5: nextstate = S10_1;

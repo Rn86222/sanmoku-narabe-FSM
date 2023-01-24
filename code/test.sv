@@ -6,7 +6,7 @@ module test;
   localparam FOURTH = 3;
 	logic CLK;
 	logic RST;
-  logic [3:0] cmd;
+  logic [3:0] A;
 	logic isNotEnd;
   logic userWins;
   logic [23:0] s;
@@ -17,7 +17,7 @@ module test;
 	(
 		.CLK(CLK),
 		.RST(RST),
-    .cmd(cmd),
+    .A(A),
 		.isNotEnd(isNotEnd),
     .userWins(userWins),
     .s(s)
@@ -51,19 +51,19 @@ module test;
 
   always_comb begin
     if (uut.s == S0) begin
-      cmd = FIRST;
+      A = FIRST;
     end else if (uut.s == S1 | uut.s == S2) begin
-      cmd = SECOND;
+      A = SECOND;
     end else if (uut.s == S3 | uut.s == S4_0 | uut.s == S4_1 | uut.s == S4_2 | uut.s == S4_3 | uut.s == S4_4 | uut.s == S7_0 | uut.s == S7_1 | uut.s == S7_2 | uut.s == S7_3 | uut.s == S7_4 | uut.s == S8) begin
-      cmd = THIRD;
+      A = THIRD;
     end else begin
-      cmd = FOURTH;
+      A = FOURTH;
     end
   end
 
 	// observe signals
 	initial begin
-    cmd = FIRST;
+    A = FIRST;
 		#100;
     $write("state = %b isNotEnd = %b userWins = %b\n", uut.s, uut.isNotEnd, uut.userWins);
     $display("-------");
